@@ -1,0 +1,11 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2018 nestike.huang@gmail.com
+
+START=99
+CRONTAB_ROOT="/etc/crontabs/root"
+
+boot() {
+	sed -i '/#update_dev_info/d' $CRONTAB_ROOT
+	echo "* * * * * sleep 20; /sbin/update_dev_info.sh #update_dev_info" >> $CRONTAB_ROOT
+	/etc/init.d/cron restart
+}
